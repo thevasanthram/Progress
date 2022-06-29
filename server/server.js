@@ -5,6 +5,7 @@ const Student = require('./models/student');
 const Question = require('./models/question');
 const History = require('./models/history');
 
+//MongoDB Connection
 const db = mongoose
   .connect(
     'mongodb+srv://admin:admin@progress.ndhto.mongodb.net/?retryWrites=true&w=majority'
@@ -14,6 +15,7 @@ const db = mongoose
     console.log(err);
   });
 
+// creating an express application
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -249,8 +251,7 @@ app.post('/history', async (req, res) => {
   }
 });
 
-app.get('/logout', (req, res) => {});
-
+//Application port configuration
 app.listen(5000, () => {
   console.log('Server listening on port 5000');
 });
