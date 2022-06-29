@@ -21,8 +21,23 @@ app.post('/register', (req, res) => {});
 
 app.post('/login', (req, res) => {});
 
-app.get('/getallquestions', (req, res) => {});
+// API to collect admin questions from database
+app.get('/getquestions', async (req, res) => {
+  try {
+    const documents = await Question.find();
+    return res.json({
+      status: 'success',
+      Question: documents,
+    });
+  } catch (err) {
+    return res.json({
+      status: 'error',
+      error: err,
+    });
+  }
+});
 
+// API to save admin questions to Database
 app.post('/setquestions', async (req, res) => {
   try {
     const question = req.body.question;
