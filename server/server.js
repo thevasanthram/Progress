@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 const Student = require('./models/student');
 const Question = require('./models/question');
 const History = require('./models/history');
@@ -18,19 +19,38 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // API to register by a student
-app.post('/register', (req, res) => {
+app.post('/register', async (req, res) => {
   try {
     const rollno = req.body.rollno;
     const name = req.body.name;
-    const password1 = req.body.password1;
-    const password2 = req.body.password2;
+    const password = req.body.password;
 
     // console.log('Roll no: ', rollno);
     // console.log('Name: ', name);
-    // console.log('Password: ', password1);
-    // console.log('Confirm Password: ', password2);
+    // console.log('Password: ', password);
 
-    
+    const saltRounds = Number(1);
+
+    bcrypt.hash(password, saltRounds, async function (err, hash) {
+      if (err) {
+        console.log(err);
+        return res.json({
+          status: 'error',
+          error: 'Error While Saving',
+        });
+      } else {
+        const document = await Student.create({
+          rollno: rollno,
+          name: name,
+          password: hash,
+        });
+
+        return res.json({
+          status: 'success',
+          Student: document,
+        });
+      }
+    });
   } catch (err) {
     return res.json({
       status: 'error',
