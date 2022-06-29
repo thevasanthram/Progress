@@ -40,25 +40,29 @@ app.get('/getquestions', async (req, res) => {
 // API to save admin questions to Database
 app.post('/setquestions', async (req, res) => {
   try {
-    const question = req.body.question;
-    const correctAnswer = req.body.correctanswer;
-    const options = req.body.options;
+    const questions = req.body.questions;
+    const documents = [];
 
     // console.log('');
-    // console.log('Question: ', question);
-    // console.log('CorrectAnswer: ', correctAnswer);
-    // console.log('Options: ', options);
-    // console.log('');
 
-    const document = await Question.create({
-      question: question,
-      correctanswer: correctAnswer,
-      options: options,
-    });
+    for (i = 0; i < questions.length; i++) {
+      // console.log('Question: ', questions[i].question);
+      // console.log('CorrectAnswer: ', questions[i].correctanswer);
+      // console.log('Options: ', questions[i].options);
+      // console.log('');
+
+      let document = await Question.create({
+        question: questions[i].question,
+        correctanswer: questions[i].correctanswer,
+        options: questions[i].options,
+      });
+
+      documents.push(document);
+    }
 
     return res.json({
       status: 'success',
-      Question: document,
+      Question: documents,
     });
   } catch (err) {
     return res.json({
