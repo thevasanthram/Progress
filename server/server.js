@@ -17,7 +17,27 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.post('/register', (req, res) => {});
+// API to register by a student
+app.post('/register', (req, res) => {
+  try {
+    const rollno = req.body.rollno;
+    const name = req.body.name;
+    const password1 = req.body.password1;
+    const password2 = req.body.password2;
+
+    // console.log('Roll no: ', rollno);
+    // console.log('Name: ', name);
+    // console.log('Password: ', password1);
+    // console.log('Confirm Password: ', password2);
+
+    
+  } catch (err) {
+    return res.json({
+      status: 'error',
+      error: err,
+    });
+  }
+});
 
 app.post('/login', (req, res) => {});
 
