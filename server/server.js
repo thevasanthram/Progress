@@ -131,7 +131,35 @@ app.post('/result', async (req, res) => {
   }
 });
 
-app.get('/history', (req, res) => {});
+// API to get quiz history of a student
+app.post('/history', async (req, res) => {
+  try {
+    const studentRollNo = req.body.studentRollNo;
+
+    const student = await History.findOne({ studentRollNo: studentRollNo });
+    // console.log('Student: ', student);
+    if (student) {
+      //student found
+
+      return res.json({
+        status: 'success',
+        History: student,
+      });
+    } else {
+      //student not found
+
+      return res.json({
+        status: 'fail',
+        History: 'Seems you have not taken any quiz before.',
+      });
+    }
+  } catch (err) {
+    return res.json({
+      status: 'error',
+      error: err,
+    });
+  }
+});
 
 app.get('/logout', (req, res) => {});
 
