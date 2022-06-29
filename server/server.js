@@ -58,7 +58,7 @@ app.post('/register', async (req, res) => {
 
           return res.json({
             status: 'success',
-            Student: document,
+            data: document,
           });
         }
       }
@@ -71,7 +71,43 @@ app.post('/register', async (req, res) => {
   }
 });
 
-app.post('/login', (req, res) => {});
+//API to login
+app.post('/login', async (req, res) => {
+  try {
+    const rollno = req.body.rollno;
+    const password = req.body.password;
+
+    // console.log('Roll no: ', rollno);
+    // console.log('Password: ', password);
+
+    const student = await Student.findOne({ rollno: rollno });
+    if (student) {
+      bcrypt.compare(password, student.password, function (err, result) {
+        if (result) {
+          return res.json({
+            status: 'success',
+            data: student,
+          });
+        } else {
+          return res.json({
+            status: 'error',
+            error: 'Invalid Password',
+          });
+        }
+      });
+    } else {
+      return res.json({
+        status: 'error',
+        error: 'Roll number not Registered',
+      });
+    }
+  } catch (err) {
+    return res.json({
+      status: 'error',
+      error: err,
+    });
+  }
+});
 
 // API to collect admin questions from database
 app.get('/getquestions', async (req, res) => {
@@ -79,7 +115,7 @@ app.get('/getquestions', async (req, res) => {
     const documents = await Question.find();
     return res.json({
       status: 'success',
-      Question: documents,
+      data: documents,
     });
   } catch (err) {
     return res.json({
@@ -114,7 +150,7 @@ app.post('/setquestions', async (req, res) => {
 
     return res.json({
       status: 'success',
-      Question: documents,
+      data: documents,
     });
   } catch (err) {
     return res.json({
@@ -160,7 +196,7 @@ app.post('/result', async (req, res) => {
 
       return res.json({
         status: 'success',
-        Result: document,
+        data: document,
       });
     } else {
       //no student found
@@ -172,7 +208,7 @@ app.post('/result', async (req, res) => {
 
       return res.json({
         status: 'success',
-        Result: document,
+        data: document,
       });
     }
   } catch (err) {
@@ -195,14 +231,14 @@ app.post('/history', async (req, res) => {
 
       return res.json({
         status: 'success',
-        History: student,
+        data: student,
       });
     } else {
       //student not found
 
       return res.json({
-        status: 'fail',
-        History: 'Seems you have not taken any quiz before.',
+        status: 'error',
+        error: 'Seems you have not taken any quiz before.',
       });
     }
   } catch (err) {
