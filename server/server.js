@@ -72,7 +72,64 @@ app.post('/setquestions', async (req, res) => {
   }
 });
 
-app.post('/result', (req, res) => {});
+// API to store result after evaluating quiz
+app.post('/result', async (req, res) => {
+  try {
+    const studentRollNo = req.body.studentRollNo; // 01
+    const score = req.body.score; // "8/10"
+    const time = req.body.time; //"29-06-2022 09:01 PM" (string)
+
+    // console.log('Student Roll No: ', studentRollNo);
+    // console.log('Score: ', score);
+    // console.log('Quiz time: ', time);
+
+    const student = await History.findOne({ studentRollNo: studentRollNo });
+    // console.log(student);
+
+    if (student) {
+      //student found
+
+      const quizArray = student.quiz;
+      quizArray.push({
+        score: score,
+        time: time,
+      });
+
+      const document = await History.updateOne(
+        {
+          studentRollNo: studentRollNo,
+        },
+        {
+          $set: {
+            quiz: quizArray,
+          },
+        }
+      );
+
+      return res.json({
+        status: 'success',
+        Result: document,
+      });
+    } else {
+      //no student found
+      const quizArray = [{ score: score, time: time }];
+      const document = await History.create({
+        studentRollNo: studentRollNo,
+        quiz: quizArray,
+      });
+
+      return res.json({
+        status: 'success',
+        Result: document,
+      });
+    }
+  } catch (err) {
+    return res.json({
+      status: 'error',
+      error: err,
+    });
+  }
+});
 
 app.get('/history', (req, res) => {});
 
