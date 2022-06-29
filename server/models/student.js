@@ -6,14 +6,7 @@ const StudentSchema = mongoose.Schema({
     unique: true,
     required: true,
   },
-  password1: {
-<<<<<<< HEAD
-=======
-    type: String,
-    required: true,
-  },
-  password2: {
->>>>>>> fae19d6629f05533b8e4fb58c4d21339e4c5e818
+  password: {
     type: String,
     required: true,
   },
