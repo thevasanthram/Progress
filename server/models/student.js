@@ -6,7 +6,11 @@ const StudentSchema = mongoose.Schema({
     unique: true,
     required: true,
   },
-  password: {
+  password1: {
+    type: String,
+    required: true,
+  },
+  password2: {
     type: String,
     required: true,
   },
