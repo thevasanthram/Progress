@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Data Schema for Student Model
 const StudentSchema = mongoose.Schema({
   rollno: {
     type: Number,
