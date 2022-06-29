@@ -39,16 +39,28 @@ app.post('/register', async (req, res) => {
           error: 'Error While Saving',
         });
       } else {
-        const document = await Student.create({
-          rollno: rollno,
-          name: name,
-          password: hash,
-        });
+        const student = await Student.findOne({ rollno: rollno });
+        if (student) {
+          //student already found
 
-        return res.json({
-          status: 'success',
-          Student: document,
-        });
+          return res.json({
+            status: 'error',
+            error: 'Duplicate Roll number',
+          });
+        } else {
+          //new student
+
+          const document = await Student.create({
+            rollno: rollno,
+            name: name,
+            password: hash,
+          });
+
+          return res.json({
+            status: 'success',
+            Student: document,
+          });
+        }
       }
     });
   } catch (err) {
