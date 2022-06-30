@@ -1,2 +1,2 @@
-import './Register.css';
+import './Result.css';
 import React from 'react';
