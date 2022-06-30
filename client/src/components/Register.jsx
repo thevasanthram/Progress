@@ -18,14 +18,15 @@ function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
-      errors.registerNumber.length == 0 &&
-      errors.name.length == 0 &&
-      errors.password.length == 0 &&
-      errors.confirmPassword.length == 0
+      errors.registerNumber.length > 0 ||
+      errors.name.length > 0 ||
+      errors.password.length > 0 ||
+      errors.confirmPassword.length > 0
     ) {
-      // post registration data to register api
-    } else {
       setSubmitError('Enter valid details!');
+    } else {
+      console.log('api call');
+      // post registration data to register api
     }
   };
 
@@ -64,74 +65,83 @@ function Register() {
   return (
     <div>
       <div class='registration-form'>
-        <h2>Registration</h2>
-        <form onSubmit={handleSubmit}>
-          <div class='form-group'>
-            <label for='exampleInputRegisterNumber1'>Register Number</label>
-            <input
-              type='number'
-              class='form-control'
-              name='registerNumber'
-              id='exampleInputRegisterNumber1'
-              aria-describedby='emailHelp'
-              placeholder='Enter register number'
-              maxLength={7}
-              onChange={handleChange}
-              required
-            />
-            {errors.registerNumber.length > 0 && (
-              <span class='error'>{errors.registerNumber}</span>
-            )}
-          </div>
-          <div class='form-group'>
-            <label for='exampleInputName1'>Name</label>
-            <input
-              type='text'
-              class='form-control'
-              name='name'
-              id='exampleInputName1'
-              aria-describedby='emailHelp'
-              placeholder='Enter name'
-              onChange={handleChange}
-              required
-            />
-            {errors.name.length > 0 && <span class='error'>{errors.name}</span>}
-          </div>
-          <div class='form-group'>
-            <label for='exampleInputPassword1'>Password</label>
-            <input
-              type='password'
-              class='form-control'
-              name='password'
-              id='exampleInputPassword1'
-              placeholder='Enter Password'
-              onChange={handleChange}
-              required
-            />
-            {errors.password.length > 0 && (
-              <span class='error'>{errors.password}</span>
-            )}
-          </div>
-          <div class='form-group'>
-            <label for='exampleInputPassword2'>Confirm Password</label>
-            <input
-              type='password'
-              class='form-control'
-              name='confirmPassword'
-              id='exampleInputPassword2'
-              placeholder='Re-enter Password'
-              onChange={handleChange}
-              required
-            />
-            {errors.confirmPassword.length > 0 && (
-              <span class='error'>{errors.confirmPassword}</span>
-            )}
-          </div>
-          <button type='submit' class='btn btn-primary'>
-            Register
-          </button>
-          {submitError.length > 0 && <span class='error'>{submitError}</span>}
-        </form>
+        <h1>Registration</h1>
+        <hr />
+        <div class='form'>
+          <form onSubmit={handleSubmit}>
+            <div class='form-group'>
+              <label for='exampleInputRegisterNumber1'>Register Number</label>
+              <input
+                type='number'
+                class='form-control'
+                name='registerNumber'
+                id='exampleInputRegisterNumber1'
+                aria-describedby='emailHelp'
+                placeholder='Enter register number'
+                maxLength={7}
+                onChange={handleChange}
+                required
+              />
+              {errors.registerNumber.length > 0 && (
+                <span class='error'>{errors.registerNumber}</span>
+              )}
+            </div>
+            <div class='form-group'>
+              <label for='exampleInputName1'>Name</label>
+              <input
+                type='text'
+                class='form-control'
+                name='name'
+                id='exampleInputName1'
+                aria-describedby='emailHelp'
+                placeholder='Enter name'
+                onChange={handleChange}
+                required
+              />
+              {errors.name.length > 0 && (
+                <span class='error'>{errors.name}</span>
+              )}
+            </div>
+            <div class='form-group'>
+              <label for='exampleInputPassword1'>Password</label>
+              <input
+                type='password'
+                class='form-control'
+                name='password'
+                id='exampleInputPassword1'
+                placeholder='Enter Password'
+                onChange={handleChange}
+                required
+              />
+              {errors.password.length > 0 && (
+                <span class='error'>{errors.password}</span>
+              )}
+            </div>
+            <div class='form-group'>
+              <label for='exampleInputPassword2'>Confirm Password</label>
+              <input
+                type='password'
+                class='form-control'
+                name='confirmPassword'
+                id='exampleInputPassword2'
+                placeholder='Re-enter Password'
+                onChange={handleChange}
+                required
+              />
+              {errors.confirmPassword.length > 0 && (
+                <span class='error'>{errors.confirmPassword}</span>
+              )}
+            </div>
+            <div class='form-group'>
+              <button type='submit' class='btn btn-primary'>
+                Register
+              </button>
+              {submitError.length > 0 && (
+                <span class='error'>{submitError}</span>
+              )}
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

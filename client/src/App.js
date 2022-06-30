@@ -16,15 +16,15 @@ function App() {
     <div className='App'>
       <Router>
         <Routes>
-          <Route path='/' component={<IndexPage />} />
-          <Route path='/login' component={<Login />} />
-          <Route path='/register' component={<Register />} />
-          <Route path='/home' component={<Home />} />
-          <Route path='/adminpanel' component={<AdminPanel />} />
-          <Route path='/studentpanel' component={<StudentPanel />} />
-          <Route path='/quiz' component={<Quiz />} />
-          <Route path='/result' component={<Result />} />
-          <Route path='/history' component={<History />} />
+          <Route path='/' element={<IndexPage />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/home' element={<Home />} />
+          <Route path='/adminpanel' element={<AdminPanel />} />
+          <Route path='/studentpanel' element={<StudentPanel />} />
+          <Route path='/quiz' element={<Quiz />} />
+          <Route path='/result' element={<Result />} />
+          <Route path='/history' element={<History />} />
         </Routes>
       </Router>
     </div>
