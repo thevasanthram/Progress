@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const cors = require('cors');
 const Student = require('./models/student');
 const Question = require('./models/question');
 const History = require('./models/history');
@@ -19,6 +20,7 @@ const db = mongoose
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 // API to register by a student
 app.post('/register', async (req, res) => {
@@ -27,9 +29,9 @@ app.post('/register', async (req, res) => {
     const name = req.body.name;
     const password = req.body.password;
 
-    // console.log('Roll no: ', rollno);
-    // console.log('Name: ', name);
-    // console.log('Password: ', password);
+    console.log('Roll no: ', rollno);
+    console.log('Name: ', name);
+    console.log('Password: ', password);
 
     const saltRounds = Number(1);
 
