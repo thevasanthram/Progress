@@ -57,6 +57,9 @@ function Register() {
         error.confirmPassword =
           value == password ? '' : 'Password must be matched';
         setConfirmPassword(value);
+
+      default:
+        break;
     }
 
     setError({ ...errors, [name]: error[`${name}`] });
@@ -65,7 +68,7 @@ function Register() {
   return (
     <div>
       <div class='registration-form'>
-        <h1>Registration</h1>
+        <h1>Sign-up</h1>
         <hr />
         <div class='form'>
           <form onSubmit={handleSubmit}>
@@ -134,7 +137,7 @@ function Register() {
             </div>
             <div class='form-group'>
               <button type='submit' class='btn btn-primary'>
-                Register
+                Sign-up
               </button>
               {submitError.length > 0 && (
                 <span class='error'>{submitError}</span>
