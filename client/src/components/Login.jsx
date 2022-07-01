@@ -1,23 +1,47 @@
 import './Register.css';
 import './Register.css';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [registerNumber, setRegisterNumber] = useState('');
   const [password, setPassword] = useState('');
   const [submitError, setSubmitError] = useState('');
+  const [errorResponse, setErrorResponse] = useState('');
+  const [ErrorResponseState, setErrorResponseState] = useState(false);
   const [errors, setError] = useState({
     registerNumber: '',
     password: '',
   });
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (errors.registerNumber.length > 0 || errors.password.length > 0) {
       setSubmitError('Enter valid details!');
     } else {
       console.log('api call');
-      // post registration data to register api
+      // api call
+      const response = await fetch('http://localhost:5000/login', {
+        method: 'POST',
+        body: JSON.stringify({
+          rollno: registerNumber,
+          password: password,
+        }),
+      });
+
+      const data = await response.json();
+      if (data.status == 'error') {
+        setErrorResponse(data.error);
+        setErrorResponseState(true);
+
+        setTimeout(() => {
+          setErrorResponseState(false);
+        }, 5000);
+      } else {
+        navigate('/home');
+      }
     }
   };
 
@@ -90,6 +114,12 @@ function Login() {
               </button>
               {submitError.length > 0 && (
                 <span class='error'>{submitError}</span>
+              )}
+              {ErrorResponseState && (
+                <div>
+                  <span class='error'>{errorResponse}</span>
+                  <span class='error'>Try Again</span>
+                </div>
               )}
             </div>
           </form>
