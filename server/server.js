@@ -223,6 +223,29 @@ app.post('/result', async (req, res) => {
   }
 });
 
+app.get('/scorecard', async (req, res) => {
+  try {
+    const document = await History.find();
+    // console.log(document);
+    if (document) {
+      return res.json({
+        status: 'success',
+        data: document,
+      });
+    } else {
+      return res.json({
+        status: 'error',
+        error: 'No one attended quiz',
+      });
+    }
+  } catch (err) {
+    return res.json({
+      status: 'error',
+      error: err,
+    });
+  }
+});
+
 // API to get quiz history of a student
 app.post('/history', async (req, res) => {
   try {
