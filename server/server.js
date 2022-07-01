@@ -25,9 +25,9 @@ app.use(cors());
 // API to register by a student
 app.post('/register', async (req, res) => {
   try {
-    const rollno = req.body.rollno;
-    const name = req.body.name;
-    const password = req.body.password;
+    // const rollno = req.body.rollno;
+    // const name = req.body.name;
+    // const password = req.body.password;
 
     console.log('Roll no: ', rollno);
     console.log('Name: ', name);
