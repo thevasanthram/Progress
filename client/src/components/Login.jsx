@@ -44,7 +44,7 @@ function Login() {
             setErrorResponseState(false);
           }, 5000);
         } else {
-          navigate('/home');
+          navigate('/studentpanel');
         }
       }
     }

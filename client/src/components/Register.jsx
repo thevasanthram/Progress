@@ -39,6 +39,9 @@ function Register() {
 
       const response = await fetch('http://localhost:5000/register', {
         method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
         body: JSON.stringify({
           rollno: registerNumber,
           name: name,
