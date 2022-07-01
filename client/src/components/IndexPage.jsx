@@ -1,10 +1,20 @@
 import './IndexPage.css';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function IndexPage() {
+  const navigate = useNavigate();
   return (
-    <div>
-      <h1>IndexPage</h1>
+    <div class='IndexPageContent'>
+      <h1 id='progress'>Progress!</h1>
+      <button class='buttonLoginRegister' onClick={() => navigate('/login')}>
+        Sign-in
+      </button>
+      <br />
+      <br />
+      <button class='buttonLoginRegister' onClick={() => navigate('/register')}>
+        Sign-up
+      </button>
     </div>
   );
 }
