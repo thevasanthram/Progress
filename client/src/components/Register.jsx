@@ -1,6 +1,7 @@
 import './Register.css';
 import './Register.css';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
   const [name, setName] = useState('');
@@ -8,6 +9,8 @@ function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [submitError, setSubmitError] = useState('');
+  const [errorResponseState, setErrorResponseState] = useState(false);
+  const [errorResponse, setErrorResponse] = useState('');
   const [errors, setError] = useState({
     registerNumber: '',
     name: '',
@@ -15,7 +18,9 @@ function Register() {
     confirmPassword: '',
   });
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (
       errors.registerNumber.length > 0 ||
@@ -25,8 +30,28 @@ function Register() {
     ) {
       setSubmitError('Enter valid details!');
     } else {
-      console.log('api call');
       // post registration data to register api
+
+      const response = await fetch('http://localhost:5000/register', {
+        method: 'POST',
+        body: JSON.stringify({
+          rollno: registerNumber,
+          name: name,
+          password: password,
+        }),
+      });
+
+      const data = await response.json();
+      if (data.status == 'error') {
+        setErrorResponse(data.error);
+        setErrorResponseState(true);
+
+        setTimeout(() => {
+          setErrorResponseState(false);
+        }, 5000);
+      } else {
+        navigate('/login');
+      }
     }
   };
 
@@ -141,6 +166,12 @@ function Register() {
               </button>
               {submitError.length > 0 && (
                 <span class='error'>{submitError}</span>
+              )}
+              {errorResponseState && (
+                <div>
+                  <span class='error'>{errorResponse}</span>
+                  <span class='error'>Try Again</span>
+                </div>
               )}
             </div>
           </form>
