@@ -1,5 +1,4 @@
-import './Register.css';
-import './Register.css';
+import './Login.css';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -78,7 +77,7 @@ function Login() {
 
   return (
     <div>
-      <div class='registration-form'>
+      <div class='login-form'>
         <h1>Sign-in</h1>
         <hr />
         <div class='form'>

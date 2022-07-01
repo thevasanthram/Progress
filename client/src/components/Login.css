@@ -1,0 +1,29 @@
+.login-form {
+  width: 30%;
+  margin-top: 10%;
+  margin-left: 13%;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: silver;
+}
+
+.form {
+  margin-left: 18%;
+  font-size: large;
+}
+
+.form-control {
+  width: 80%;
+  margin-bottom: 5%;
+}
+
+.form-group {
+  text-align: left;
+}
+
+.error {
+  margin-left: 4%;
+  font-size: medium;
+  font-style: italic;
+  color: rgb(253, 95, 95);
+}
