@@ -21,26 +21,31 @@ function Login() {
     if (errors.registerNumber.length > 0 || errors.password.length > 0) {
       setSubmitError('Enter valid details!');
     } else {
-      console.log('api call');
-      // api call
-      const response = await fetch('http://localhost:5000/login', {
-        method: 'POST',
-        body: JSON.stringify({
-          rollno: registerNumber,
-          password: password,
-        }),
-      });
-
-      const data = await response.json();
-      if (data.status == 'error') {
-        setErrorResponse(data.error);
-        setErrorResponseState(true);
-
-        setTimeout(() => {
-          setErrorResponseState(false);
-        }, 5000);
+      if (registerNumber == 'admin' && password == 'admin123') {
+        navigate('/adminpanel');
       } else {
-        navigate('/home');
+        const response = await fetch('http://localhost:5000/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            rollno: registerNumber,
+            password: password,
+          }),
+        });
+
+        const data = await response.json();
+        if (data.status == 'error') {
+          setErrorResponse(data.error);
+          setErrorResponseState(true);
+
+          setTimeout(() => {
+            setErrorResponseState(false);
+          }, 5000);
+        } else {
+          navigate('/home');
+        }
       }
     }
   };
@@ -52,9 +57,9 @@ function Login() {
     switch (name) {
       case 'registerNumber':
         error.registerNumber =
-          value > 1000000 && value < 9999999
-            ? ''
-            : 'Register Number must be greater than 1000000 & lesser than 9999999';
+          !(value > 1000000 && value < 9999999) && value != 'admin'
+            ? 'Register Number must be greater than 1000000 & lesser than 9999999'
+            : '';
         setRegisterNumber(value);
         break;
 
