@@ -52,9 +52,9 @@ function Login() {
     switch (name) {
       case 'registerNumber':
         error.registerNumber =
-          value >= 1000000 && value <= 9999999
+          value > 1000000 && value < 9999999
             ? ''
-            : 'Register Number must be 7 digits';
+            : 'Register Number must be greater than 1000000 & lesser than 9999999';
         setRegisterNumber(value);
         break;
 
