@@ -52,7 +52,9 @@ function Login() {
     switch (name) {
       case 'registerNumber':
         error.registerNumber =
-          value.length == 7 ? '' : 'Register Number must be 7 digits';
+          value >= 1000000 && value <= 9999999
+            ? ''
+            : 'Register Number must be 7 digits';
         setRegisterNumber(value);
         break;
 
@@ -79,7 +81,7 @@ function Login() {
             <div class='form-group'>
               <label for='exampleInputRegisterNumber1'>Register Number</label>
               <input
-                type='number'
+                type='text'
                 class='form-control'
                 name='registerNumber'
                 id='exampleInputRegisterNumber1'
