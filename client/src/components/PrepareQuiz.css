@@ -1,0 +1,41 @@
+.preparequiz {
+  width: 50%;
+  margin-top: 1%;
+  margin-left: 4%;
+}
+
+.quizcontent {
+  margin-left: 2%;
+}
+
+.title {
+  text-align: left;
+}
+
+.form-group {
+  text-align: left;
+  margin-left: 5%;
+}
+
+.question {
+  height: 1%;
+}
+
+.option {
+  padding: 1%;
+  width: 40%;
+  text-align: left;
+  margin-left: 4%;
+}
+
+.answer {
+  padding: 1%;
+}
+.correctoption {
+  margin-left: 8%;
+  padding: 1%;
+  width: 30%;
+}
+
+.navigationbutton {
+}
