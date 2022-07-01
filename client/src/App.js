@@ -9,6 +9,8 @@ import StudentPanel from './components/StudentPanel';
 import Quiz from './components/Quiz';
 import Result from './components/Result';
 import History from './components/History';
+import PrepareQuiz from './components/PrepareQuiz';
+import ScoreCard from './components/ScoreCard';
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/adminpanel' element={<AdminPanel />} />
+          <Route path='/preparequiz' element={<PrepareQuiz />} />
+          <Route path='/scorecard' element={<ScoreCard />} />
           <Route path='/studentpanel' element={<StudentPanel />} />
           <Route path='/quiz' element={<Quiz />} />
           <Route path='/result' element={<Result />} />
