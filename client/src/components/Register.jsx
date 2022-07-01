@@ -185,6 +185,12 @@ function Register() {
               )}
             </div>
           </form>
+          
+          <div class='form-group'>
+            <button onClick={() => navigate('/login')} class='btn btn-primary'>
+              Sign-in
+            </button>
+          </div>
         </div>
       </div>
     </div>

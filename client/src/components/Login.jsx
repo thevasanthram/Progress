@@ -125,7 +125,16 @@ function Login() {
               {ErrorResponseState && (
                 <div>
                   <span class='error'>{errorResponse}</span>
-                  <span class='error'>Try Again</span>
+                  <br />
+                  <span class='error'>Try Again / Register</span>
+                  <div class='form-group'>
+                    <button
+                      onClick={() => navigate('/register')}
+                      class='btn btn-primary'
+                    >
+                      Sign-up
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
