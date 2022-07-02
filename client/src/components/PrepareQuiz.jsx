@@ -29,9 +29,6 @@ function PrepareQuiz() {
     if (error.length > 0) {
       setErrorMsg(true);
     } else {
-      // console.log('api call');
-      // console.log(questionSet)
-
       const response = await fetch('http://localhost:5000/setquestions', {
         method: 'POST',
         headers: {
