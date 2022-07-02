@@ -4,28 +4,104 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function PrepareQuiz() {
-  const [singleQuestion, setSingleQuestion] = useState('');
-  const [singleQuestionOptions, setSingleQuestionOptions] = useState([]);
-  const [correctoption, setCorrectOption] = useState('');
+  const [questionSet, setQuestionSet] = useState({
+    question: '',
+    options: {
+      0: '',
+      1: '',
+      2: '',
+      3: '',
+    },
+    correctoption: '',
+  });
   const [error, setError] = useState('');
+  const [errorMsg, setErrorMsg] = useState(false);
+  const [ErrorResponse, setErrorResponse] = useState('');
+  const [ErrorResponseState, setErrorResponseState] = useState('');
+  const [SuccessResponse, setSuccessResponse] = useState('');
+  const [SuccessResponseState, setSuccessResponseState] = useState('');
 
   const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (error.length > 0) {
+      setErrorMsg(true);
+    } else {
+      // console.log('api call');
+      // console.log(questionSet)
+
+      const response = await fetch('http://localhost:5000/setquestions', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          questionSet: questionSet,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.status == 'error') {
+        setErrorResponse(data.error);
+        setErrorResponseState(true);
+
+        setTimeout(() => {
+          setErrorResponseState(false);
+        }, 5000);
+      } else {
+        setSuccessResponse(
+          'Upload done! For more, fill after values cleared automatically'
+        );
+        setSuccessResponseState(true);
+
+        setTimeout(() => {
+          setSuccessResponseState(false);
+          navigate('/preparequiz');
+        }, 6000);
+      }
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     switch (name) {
       case 'question':
-        setSingleQuestion(value);
+        const question = { ...questionSet };
+        setQuestionSet({ ...question, [name]: value });
         break;
 
-      case 'option':
-        let options = singleQuestionOptions;
-        options.push(value);
-        setSingleQuestionOptions(options);
+      case '0':
+        const questionoption0 = { ...questionSet };
+        questionoption0.options[0] = value;
+        setQuestionSet(questionoption0);
+        break;
+
+      case '1':
+        const questionoption1 = { ...questionSet };
+        questionoption1.options[1] = value;
+        setQuestionSet(questionoption1);
+        break;
+
+      case '2':
+        const questionoption2 = { ...questionSet };
+        questionoption2.options[2] = value;
+        setQuestionSet(questionoption2);
+        break;
+
+      case '3':
+        const questionoption3 = { ...questionSet };
+        questionoption3.options[3] = value;
+        setQuestionSet(questionoption3);
         break;
 
       case 'correctoption':
+        const questionCorrectOption = { ...questionSet };
+        questionCorrectOption.correctoption = value;
+        setQuestionSet(questionCorrectOption);
         value == 'A' ||
         value == 'B' ||
         value == 'C' ||
@@ -36,8 +112,7 @@ function PrepareQuiz() {
         value == 'd'
           ? setError('')
           : setError('Option must be among [A,B,C,D]');
-        setCorrectOption(value);
-
+        console.log(questionSet);
       default:
         break;
     }
@@ -45,12 +120,12 @@ function PrepareQuiz() {
 
   return (
     <div class='preparequiz'>
-      {singleQuestionOptions}
       <h1>Prepare Quiz</h1>
       <hr />
       <div class='quizcontent'>
-        <form name='form'>
+        <form name='form' onSubmit={handleSubmit}>
           <div class='question'>
+            <h4 class='title'>Question:</h4>
             <div class='form-group'>
               <div class='question'>
                 <textarea
@@ -81,7 +156,7 @@ function PrepareQuiz() {
                   aria-label='Username'
                   aria-describedby='basic-addon1'
                   onChange={handleChange}
-                  name='option'
+                  name='0'
                   required
                 />
               </div>
@@ -99,7 +174,7 @@ function PrepareQuiz() {
                   aria-label='Username'
                   aria-describedby='basic-addon1'
                   onChange={handleChange}
-                  name='option'
+                  name='1'
                   required
                 />
               </div>
@@ -117,7 +192,7 @@ function PrepareQuiz() {
                   aria-label='Username'
                   aria-describedby='basic-addon1'
                   onChange={handleChange}
-                  name='option'
+                  name='2'
                   required
                 />
               </div>
@@ -131,11 +206,11 @@ function PrepareQuiz() {
                 <input
                   type='text'
                   class='form-control'
-                  name='option'
                   placeholder='Option D'
                   aria-label='Username'
                   aria-describedby='basic-addon1'
                   onChange={handleChange}
+                  name='3'
                   required
                 />
               </div>
@@ -149,16 +224,12 @@ function PrepareQuiz() {
                   type='text'
                   class='form-control'
                   name='correctoption'
-                  id='exampleInputPassword1'
                   placeholder='Correct Option'
-                  onClick={handleChange}
+                  onChange={handleChange}
                   maxLength={1}
+                  required
                 />
-                {error && (
-                  <div>
-                    <span class='error'>{error}</span>
-                  </div>
-                )}
+                {error && <span class='error'>{error}</span>}
               </div>
             </div>
           </div>
@@ -166,16 +237,13 @@ function PrepareQuiz() {
             <button type='submit' class='btn btn-primary'>
               Upload
             </button>
-          </div>
-          <div class='anotherquestion'>
-            <button
-              onClick={() => navigate('/preparequiz')}
-              class='btn btn-primary'
-            >
-              Add another question
-            </button>
+            {errorMsg && <span class='error'>Enter valid option!</span>}
           </div>
         </form>
+        {ErrorResponseState && (
+          <span class='error'>{ErrorResponse} Try Again!</span>
+        )}
+        {SuccessResponseState && <span class='error'>{SuccessResponse}</span>}
       </div>
     </div>
   );
