@@ -132,25 +132,18 @@ app.get('/getquestions', async (req, res) => {
 // API to save admin questions to Database
 app.post('/setquestions', async (req, res) => {
   try {
-    const questions = req.body.questions;
+    const questionSet = req.body.questionSet;
     const documents = [];
 
     // console.log('');
 
-    for (i = 0; i < questions.length; i++) {
-      // console.log('Question: ', questions[i].question);
-      // console.log('CorrectAnswer: ', questions[i].correctanswer);
-      // console.log('Options: ', questions[i].options);
-      // console.log('');
+    let document = await Question.create({
+      question: questionSet.question,
+      correctanswer: questionSet.correctoption,
+      options: questionSet.options,
+    });
 
-      let document = await Question.create({
-        question: questions[i].question,
-        correctanswer: questions[i].correctanswer,
-        options: questions[i].options,
-      });
-
-      documents.push(document);
-    }
+    documents.push(document);
 
     return res.json({
       status: 'success',
