@@ -97,7 +97,28 @@ function PrepareQuiz() {
 
       case 'correctoption':
         const questionCorrectOption = { ...questionSet };
-        questionCorrectOption.correctoption = value;
+
+        switch (value) {
+          case 'A' || 'a':
+            questionCorrectOption.correctoption = 0;
+            break;
+
+          case 'B' || 'b':
+            questionCorrectOption.correctoption = 1;
+            break;
+
+          case 'C' || 'c':
+            questionCorrectOption.correctoption = 2;
+            break;
+
+          case 'D' || 'd':
+            questionCorrectOption.correctoption = 3;
+            break;
+
+          default:
+            break;
+        }
+
         setQuestionSet(questionCorrectOption);
         value == 'A' ||
         value == 'B' ||
