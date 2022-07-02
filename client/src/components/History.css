@@ -1,0 +1,31 @@
+.history {
+  width: 50%;
+  margin-top: 2%;
+  margin-left: 4%;
+}
+
+.titlehistory {
+  text-align: center;
+  color: silver;
+}
+
+.quizhistory {
+  padding: 1%;
+}
+
+.singlequiz {
+  margin-top: 2%;
+  margin-left: 10%;
+  width: 80%;
+  color: rgb(60, 60, 60);
+  background-color: silver;
+}
+
+.singlequiz:hover {
+  margin-top: 1%;
+  color: black;
+  margin-left: 8%;
+  width: 83%;
+  background-color: rgb(255, 255, 255);
+  transition: all 0.5s;
+}

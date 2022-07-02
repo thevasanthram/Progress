@@ -43,6 +43,8 @@ function Login() {
             setErrorResponseState(false);
           }, 5000);
         } else {
+          localStorage.setItem('registerNumber', data.data.rollno);
+          // console.log(localStorage.getItem('registerNumber'));
           navigate('/studentpanel');
         }
       }

@@ -1,51 +1,63 @@
 import './PrepareQuiz.css';
 import React from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function PrepareQuiz() {
-  const [questions, setQuestions] = useState([]);
   const [singleQuestion, setSingleQuestion] = useState('');
   const [singleQuestionOptions, setSingleQuestionOptions] = useState([]);
-  const [questionNumber, setQuestionNumber] = useState(0);
+  const [correctoption, setCorrectOption] = useState('');
+  const [error, setError] = useState('');
 
-  const IncreamentQuestionNumber = () => {
-    setQuestionNumber(questionNumber + 1);
-  };
-
-  const DecreamentQuestionNumber = () => {
-    setQuestionNumber(questionNumber - 1);
-  };
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     switch (name) {
       case 'question':
+        setSingleQuestion(value);
         break;
 
       case 'option':
+        let options = singleQuestionOptions;
+        options.push(value);
+        setSingleQuestionOptions(options);
         break;
+
+      case 'correctoption':
+        value == 'A' ||
+        value == 'B' ||
+        value == 'C' ||
+        value == 'D' ||
+        value == 'a' ||
+        value == 'b' ||
+        value == 'c' ||
+        value == 'd'
+          ? setError('')
+          : setError('Option must be among [A,B,C,D]');
+        setCorrectOption(value);
 
       default:
         break;
     }
-    setSingleQuestion(e.target.value);
   };
 
   return (
     <div class='preparequiz'>
+      {singleQuestionOptions}
       <h1>Prepare Quiz</h1>
       <hr />
       <div class='quizcontent'>
         <form name='form'>
           <div class='question'>
-            <h4 class='title'>Question No: {questionNumber + 1}</h4>
             <div class='form-group'>
               <div class='question'>
                 <textarea
                   class='form-control'
                   id='exampleFormControlTextarea1'
                   rows='2'
+                  name='question'
                   onChange={handleChange}
                   placeholder='Start typing question'
                   required
@@ -68,6 +80,8 @@ function PrepareQuiz() {
                   placeholder='Option A'
                   aria-label='Username'
                   aria-describedby='basic-addon1'
+                  onChange={handleChange}
+                  name='option'
                   required
                 />
               </div>
@@ -84,6 +98,8 @@ function PrepareQuiz() {
                   placeholder='Option B'
                   aria-label='Username'
                   aria-describedby='basic-addon1'
+                  onChange={handleChange}
+                  name='option'
                   required
                 />
               </div>
@@ -100,6 +116,8 @@ function PrepareQuiz() {
                   placeholder='Option C'
                   aria-label='Username'
                   aria-describedby='basic-addon1'
+                  onChange={handleChange}
+                  name='option'
                   required
                 />
               </div>
@@ -113,9 +131,11 @@ function PrepareQuiz() {
                 <input
                   type='text'
                   class='form-control'
+                  name='option'
                   placeholder='Option D'
                   aria-label='Username'
                   aria-describedby='basic-addon1'
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -128,10 +148,17 @@ function PrepareQuiz() {
                 <input
                   type='text'
                   class='form-control'
+                  name='correctoption'
                   id='exampleInputPassword1'
                   placeholder='Correct Option'
+                  onClick={handleChange}
                   maxLength={1}
                 />
+                {error && (
+                  <div>
+                    <span class='error'>{error}</span>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -139,24 +166,14 @@ function PrepareQuiz() {
             <button type='submit' class='btn btn-primary'>
               Upload
             </button>
-            {questionNumber > 0 && (
-              <div class='navigation'>
-                <button
-                  onClick={DecreamentQuestionNumber}
-                  class='btn btn-primary'
-                >
-                  Prev
-                </button>
-              </div>
-            )}
-            <div class='navigationbutton'>
-              <button
-                onClick={IncreamentQuestionNumber}
-                class='btn btn-primary'
-              >
-                Next
-              </button>
-            </div>
+          </div>
+          <div class='anotherquestion'>
+            <button
+              onClick={() => navigate('/preparequiz')}
+              class='btn btn-primary'
+            >
+              Add another question
+            </button>
           </div>
         </form>
       </div>
