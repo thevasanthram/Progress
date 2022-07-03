@@ -50,13 +50,13 @@ function PrepareQuiz() {
         }, 5000);
       } else {
         setSuccessResponse(
-          'Upload done! For more, Clear filled values & try new'
+          'Upload done! For adding more questions, clear filled values & try new'
         );
         setSuccessResponseState(true);
 
         setTimeout(() => {
           setSuccessResponseState(false);
-        }, 6000);
+        }, 8000);
       }
     }
   };
