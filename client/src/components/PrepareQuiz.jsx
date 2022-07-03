@@ -50,13 +50,12 @@ function PrepareQuiz() {
         }, 5000);
       } else {
         setSuccessResponse(
-          'Upload done! For more, fill after values cleared automatically'
+          'Upload done! For more, Clear filled values & try new'
         );
         setSuccessResponseState(true);
 
         setTimeout(() => {
           setSuccessResponseState(false);
-          navigate('/preparequiz');
         }, 6000);
       }
     }
@@ -99,19 +98,35 @@ function PrepareQuiz() {
         const questionCorrectOption = { ...questionSet };
 
         switch (value) {
-          case 'A' || 'a':
+          case 'A':
             questionCorrectOption.correctoption = 0;
             break;
 
-          case 'B' || 'b':
+          case 'a':
+            questionCorrectOption.correctoption = 0;
+            break;
+
+          case 'B':
             questionCorrectOption.correctoption = 1;
             break;
 
-          case 'C' || 'c':
+          case 'b':
+            questionCorrectOption.correctoption = 1;
+            break;
+
+          case 'C':
             questionCorrectOption.correctoption = 2;
             break;
 
-          case 'D' || 'd':
+          case 'c':
+            questionCorrectOption.correctoption = 2;
+            break;
+
+          case 'D':
+            questionCorrectOption.correctoption = 3;
+            break;
+
+          case 'd':
             questionCorrectOption.correctoption = 3;
             break;
 
