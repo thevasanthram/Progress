@@ -56,7 +56,7 @@ function PrepareQuiz() {
 
         setTimeout(() => {
           setSuccessResponseState(false);
-        }, 8000);
+        }, 10000);
       }
     }
   };
@@ -144,7 +144,7 @@ function PrepareQuiz() {
         value == 'c' ||
         value == 'd'
           ? setError('')
-          : setError('Option must be among [A,B,C,D]');
+          : setError('Choose one of the above option');
         console.log(questionSet);
       default:
         break;
@@ -160,7 +160,7 @@ function PrepareQuiz() {
           <div class='question'>
             <h4 class='title'>Question:</h4>
             <div class='form-group'>
-              <div class='question'>
+              <div class='questioncontent'>
                 <textarea
                   class='form-control'
                   id='exampleFormControlTextarea1'

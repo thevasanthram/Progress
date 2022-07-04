@@ -8,6 +8,10 @@
   margin-left: 2%;
 }
 
+.questioncontent {
+  margin-left: 10%;
+}
+
 .title {
   text-align: left;
 }
@@ -23,9 +27,9 @@
 
 .option {
   padding: 1%;
-  width: 40%;
+  width: 60%;
   text-align: left;
-  margin-left: 4%;
+  margin-left: 14%;
 }
 
 .answer {
@@ -34,7 +38,7 @@
 .correctoption {
   margin-left: 8%;
   padding: 1%;
-  width: 30%;
+  width: 82%;
 }
 
 .navigation {

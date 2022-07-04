@@ -1,1 +1,45 @@
+.quizcontent {
+  margin-top: 8%;
+  width: 50%;
+}
 
+.quiztitle {
+  color: silver;
+}
+
+.question {
+  background-color: rgba(228, 226, 226, 0.784);
+  margin-left: 5%;
+  width: 90%;
+}
+
+.questionnumber {
+  text-align: left;
+  margin-top: 2%;
+  margin-left: 2%;
+}
+
+.questiondata {
+  text-align: left;
+  margin-left: 8%;
+}
+
+.options {
+  text-align: left;
+  margin-left: 5%;
+}
+.navigationbuttonquiz{
+  margin-bottom: 2%;
+}
+
+#prevbuttonquiz{
+  margin-right: 2%;
+}
+
+#nextbuttonquiz{
+  margin-left: 2%;
+}
+
+#submitbuttonquiz{
+  margin-left: 2%;
+}
