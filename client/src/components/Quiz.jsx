@@ -1,6 +1,7 @@
 import './Quiz.css';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Quiz() {
   const [questionNo, setQuestionNo] = useState(0);
@@ -9,11 +10,11 @@ function Quiz() {
   const [ErrorResponse, setErrorResponse] = useState('');
   const [ErrorResponseState, setErrorResponseState] = useState('');
 
-  // let scoreArray = new Array(questionSet.length);
-  // console.log(scoreArray);
+  const navigate = useNavigate();
 
   const clickNext = () => {
     setQuestionNo(questionNo + 1);
+    // console.log(optionChosen);
   };
 
   const clickPrev = () => {
@@ -21,15 +22,51 @@ function Quiz() {
   };
 
   const handleOptionSelect = (e) => {
-    setOptionChosen(e.target.value);
-    console.log(optionChosen);
-    // if (questionSet[questionNo].correctanswer == optionChosen) {
-    //   scoreArray[questionNo] = 1;
-    // } else {
-    //   scoreArray[questionNo] = 0;
-    // }
+    setOptionChosen({ ...optionChosen, [questionNo]: e.target.value });
+  };
 
-    // console.log(scoreArray);
+  const handleSubmit = async (e) => {
+    let score = 0;
+    const totalQuestions = questionSet.length;
+    for (let i = 0; i < questionSet.length; i++) {
+      if (questionSet[i].correctanswer == optionChosen[`${i}`]) {
+        score = score + 1;
+      }
+    }
+    console.log('score: ', score);
+    console.log('Total Questions: ', totalQuestions);
+
+    localStorage.setItem('score', score);
+    localStorage.setItem('totalQuestions', totalQuestions);
+
+    var currentdate = new Date();
+    var datetime =
+      currentdate.getDate() +
+      '/' +
+      (currentdate.getMonth() + 1) +
+      '/' +
+      currentdate.getFullYear() +
+      ' @ ' +
+      currentdate.getHours() +
+      ':' +
+      currentdate.getMinutes() +
+      ':' +
+      currentdate.getSeconds();
+
+    const registerNumber = localStorage.getItem('registerNumber');
+    await fetch('http://localhost:5000/result', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        studentRollNo: registerNumber,
+        score: `${score}/${totalQuestions}`,
+        time: datetime,
+      }),
+    });
+
+    navigate('/result');
   };
 
   useEffect(() => {
@@ -107,7 +144,11 @@ function Quiz() {
             )}
             {questionNo + 1 == questionSet.length && (
               //validate option for last question manually
-              <button id='submitbuttonquiz' class='btn btn-primary'>
+              <button
+                onClick={handleSubmit}
+                id='submitbuttonquiz'
+                class='btn btn-primary'
+              >
                 Submit
               </button>
             )}
