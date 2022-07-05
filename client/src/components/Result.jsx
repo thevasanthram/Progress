@@ -12,10 +12,10 @@ function Result() {
   }, []);
   return (
     <div class='resultcontent'>
-      <h1>Result</h1>
+      <h1 class='resulttitle'>Result</h1>
       <hr />
       <div class='resultdata'>
-        <h2>
+        <h2 id='scoredata'>
           You scored {score} out of {totalQuestions}
         </h2>
         <Link to='/studentpanel'>Go to Home</Link>
