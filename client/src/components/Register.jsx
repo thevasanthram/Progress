@@ -34,7 +34,7 @@ function Register() {
       console.log('data: ', {
         rollno: registerNumber,
         name: name,
-        password: password,
+        // password: password,
       });
 
       const response = await fetch('http://localhost:5000/register', {
@@ -185,7 +185,7 @@ function Register() {
               )}
             </div>
           </form>
-          
+
           <div class='form-group'>
             <button onClick={() => navigate('/login')} class='btn btn-primary'>
               Sign-in
