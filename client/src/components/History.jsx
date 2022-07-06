@@ -31,9 +31,8 @@ function History() {
         setErrorResponseState(true);
       } else {
         setHistory(data.data);
+        setReadyForRender(true);
       }
-
-      setReadyForRender(true);
     }
 
     fetchHistory();
