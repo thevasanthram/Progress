@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 function Quiz() {
   const [questionNo, setQuestionNo] = useState(0);
   const [questionSet, setQuestionSet] = useState([]);
-  const [optionChosen, setOptionChosen] = useState('');
+  const [optionChosen, setOptionChosen] = useState({});
   const [ErrorResponse, setErrorResponse] = useState('');
   const [ErrorResponseState, setErrorResponseState] = useState('');
 
@@ -110,10 +110,11 @@ function Quiz() {
                   <div className='option'>
                     <input
                       type='radio'
+                      key={index}
                       name='radiobutton'
                       value={index}
-                      // checked={answers[quesNumber] === key}
-                      onClick={handleOptionSelect}
+                      checked={optionChosen[`${questionNo}`] == index}
+                      onChange={handleOptionSelect}
                     />
                     <label class='form-check-label' for='exampleRadios1'>
                       <h4> {singleOption}</h4>
