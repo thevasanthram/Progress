@@ -117,10 +117,18 @@ app.post('/login', async (req, res) => {
 app.get('/getquestions', async (req, res) => {
   try {
     const documents = await Question.find();
-    return res.json({
-      status: 'success',
-      data: documents,
-    });
+    // console.log(documents);
+    if (documents.length > 0) {
+      return res.json({
+        status: 'success',
+        data: documents,
+      });
+    } else {
+      return res.json({
+        status: 'error',
+        error: 'Quiz has not yet begun',
+      });
+    }
   } catch (err) {
     return res.json({
       status: 'error',
