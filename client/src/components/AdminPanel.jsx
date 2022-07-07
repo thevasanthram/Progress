@@ -29,15 +29,29 @@ function AdminPanel() {
         <button class='buttonAdminPanel' onClick={() => navigate('/scorecard')}>
           Score Card
         </button>
+        <br />
+        <br />
+        <button
+          class='buttonAdminPanel'
+          onClick={() => {
+            localStorage.removeItem('registerNumber');
+            navigate('/login');
+          }}
+        >
+          Logout
+        </button>
       </div>
     );
   }
 
   function LoginAlert() {
     return (
-      <div>
-        <h2>User has not logged in / session expired.. Try logging in</h2>
-        <Link to='/login'>Login</Link>
+      <div class='loginerror'>
+        <div class='loginerrorcontent'>
+          <h2>User has not logged in / session expired..</h2>
+          <h2>Try logging in</h2>
+          <Link to='/login'>Login</Link>
+        </div>
       </div>
     );
   }

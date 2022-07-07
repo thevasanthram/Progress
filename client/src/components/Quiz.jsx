@@ -176,9 +176,12 @@ function Quiz() {
 
   function LoginAlert() {
     return (
-      <div>
-        <h2>User has not logged in / session expired.. Try logging in</h2>
-        <Link to='/login'>Login</Link>
+      <div class='loginerror'>
+        <div class='loginerrorcontent'>
+          <h2>User has not logged in / session expired..</h2>
+          <h2>Try logging in</h2>
+          <Link to='/login'>Login</Link>
+        </div>
       </div>
     );
   }

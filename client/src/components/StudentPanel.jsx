@@ -9,7 +9,7 @@ function StudentPanel() {
 
   useEffect(() => {
     const registerNumber = localStorage.getItem('registerNumber');
-    if (registerNumber != 'admin') {
+    if (registerNumber != 'admin' && registerNumber != null) {
       setLoginStatus(true);
     }
   }, []);
@@ -26,15 +26,29 @@ function StudentPanel() {
         <button class='buttonStudentPanel' onClick={() => navigate('/history')}>
           History
         </button>
+        <br />
+        <br />
+        <button
+          class='buttonStudentPanel'
+          onClick={() => {
+            localStorage.removeItem('registerNumber');
+            navigate('/login');
+          }}
+        >
+          Logout
+        </button>
       </div>
     );
   }
 
   function LoginAlert() {
     return (
-      <div>
-        <h2>User has not logged in / session expired.. Try logging in</h2>
-        <Link to='/login'>Login</Link>
+      <div class='loginerror'>
+        <div class='loginerrorcontent'>
+          <h2>User has not logged in / session expired..</h2>
+          <h2>Try logging in</h2>
+          <Link to='/login'>Login</Link>
+        </div>
       </div>
     );
   }
