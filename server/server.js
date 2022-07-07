@@ -126,7 +126,7 @@ app.get('/getquestions', async (req, res) => {
     } else {
       return res.json({
         status: 'error',
-        error: 'Quiz has not yet begun',
+        error: 'Quiz has not begun',
       });
     }
   } catch (err) {
