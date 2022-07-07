@@ -40,7 +40,7 @@ function ScoreCard() {
               <div class='singlecard'>
                 <h4>Student Register Number: {card.studentRollNo}</h4>
                 <hr />
-                { card.quiz.map((singleQuiz) => {
+                {card.quiz.map((singleQuiz) => {
                   return (
                     <div class='quizdetails'>
                       <h5>Score: {singleQuiz.score}</h5>
