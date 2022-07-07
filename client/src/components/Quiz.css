@@ -28,18 +28,21 @@
   text-align: left;
   margin-left: 5%;
 }
-.navigationbuttonquiz{
+.navigationbuttonquiz {
   margin-bottom: 2%;
 }
 
-#prevbuttonquiz{
+#prevbuttonquiz {
   margin-right: 2%;
 }
 
-#nextbuttonquiz{
+#nextbuttonquiz {
   margin-left: 2%;
 }
 
-#submitbuttonquiz{
+#submitbuttonquiz {
   margin-left: 2%;
+}
+.errorresponsequiz {
+  color: black;
 }
