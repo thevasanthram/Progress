@@ -228,7 +228,7 @@ app.get('/scorecard', async (req, res) => {
   try {
     const document = await History.find();
     // console.log(document);
-    if (document) {
+    if (document.length > 0) {
       return res.json({
         status: 'success',
         data: document,
@@ -236,7 +236,7 @@ app.get('/scorecard', async (req, res) => {
     } else {
       return res.json({
         status: 'error',
-        error: 'No one attended quiz',
+        error: 'Students has not attended quiz',
       });
     }
   } catch (err) {
