@@ -20,8 +20,14 @@ function Login() {
     if (errors.registerNumber.length > 0 || errors.password.length > 0) {
       setSubmitError('Enter valid details!');
     } else {
-      if (registerNumber == 'admin' && password == 'admin123') {
-        navigate('/adminpanel');
+      if (registerNumber == 'admin') {
+        if (password == 'admin123') {
+          localStorage.setItem('registerNumber', 'admin');
+          navigate('/adminpanel');
+        } else {
+          setErrorResponse('Invalid Password!');
+          setErrorResponseState(true);
+        }
       } else {
         const response = await fetch('http://localhost:5000/login', {
           method: 'POST',
