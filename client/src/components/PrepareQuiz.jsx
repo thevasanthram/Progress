@@ -157,7 +157,7 @@ function PrepareQuiz() {
       <hr />
       <div class='quizcontent'>
         <form name='form' onSubmit={handleSubmit}>
-          <div class='question'>
+          <div class='questiondivision'>
             <h4 class='title'>Question:</h4>
             <div class='form-group'>
               <div class='questioncontent'>

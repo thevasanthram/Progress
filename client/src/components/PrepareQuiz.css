@@ -5,11 +5,12 @@
 }
 
 .quizcontent {
-  margin-left: 2%;
+  margin-left: 5%;
 }
 
 .questioncontent {
   margin-left: 10%;
+  width: 150%;
 }
 
 .title {
@@ -21,8 +22,8 @@
   margin-left: 5%;
 }
 
-.question {
-  height: 1%;
+.questiondivision {
+  margin-left: 5%;
 }
 
 .option {
@@ -34,11 +35,12 @@
 
 .answer {
   padding: 1%;
+  margin-left: 5%;
 }
 .correctoption {
-  margin-left: 8%;
+  margin-left: 10%;
   padding: 1%;
-  width: 82%;
+  width: 80%;
 }
 
 .navigation {
