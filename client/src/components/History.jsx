@@ -1,5 +1,6 @@
 import './History.css';
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function History() {
   const [history, setHistory] = useState({});
@@ -7,7 +8,8 @@ function History() {
   const [errorResponseState, setErrorResponseState] = useState(false);
   const [readyForRender, setReadyForRender] = useState(false);
 
-  console.log('entering history');
+  const [loginStatus, setLoginStatus] = useState(false);
+
   useEffect(() => {
     async function fetchHistory() {
       console.log('entering fetchHistory');
@@ -38,29 +40,49 @@ function History() {
     fetchHistory();
   }, []);
 
-  return (
-    <div class='history'>
-      <h1 class='titlehistory'>History</h1>
-      <hr />
-      <div class='quizhistory'>
-        {readyForRender &&
-          history.quiz.map((singleQuiz) => {
-            return (
-              <div class='singlequiz'>
-                <h2>Quiz taken on {singleQuiz.time}</h2>
-                <h2>Score: {singleQuiz.score}</h2>
-              </div>
-            );
-          })}
+  useEffect(() => {
+    const registerNumber = localStorage.getItem('registerNumber');
+    if (registerNumber != 'admin') {
+      setLoginStatus(true);
+    }
+  }, []);
 
-        {errorResponseState && (
-          <div class='errorResponseScoreCard'>
-            <h3>{errorResponse}</h3>
-          </div>
-        )}
+  function Content() {
+    return (
+      <div class='history'>
+        <h1 class='titlehistory'>History</h1>
+        <hr />
+        <div class='quizhistory'>
+          {readyForRender &&
+            history.quiz.map((singleQuiz) => {
+              return (
+                <div class='singlequiz'>
+                  <h2>Quiz taken on {singleQuiz.time}</h2>
+                  <h2>Score: {singleQuiz.score}</h2>
+                </div>
+              );
+            })}
+
+          {errorResponseState && (
+            <div class='errorResponseScoreCard'>
+              <h3>{errorResponse}</h3>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  function LoginAlert() {
+    return (
+      <div>
+        <h2>User has not logged in / session expired.. Try logging in</h2>
+        <Link to='/login'>Login</Link>
+      </div>
+    );
+  }
+
+  return <div>{loginStatus ? <Content /> : <LoginAlert />}</div>;
 }
 
 export default History;

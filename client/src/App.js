@@ -17,16 +17,16 @@ function App() {
     <div className='App'>
       <Router>
         <Routes>
-          <Route path='/' element={<IndexPage />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/adminpanel' element={<AdminPanel />} />
-          <Route path='/preparequiz' element={<PrepareQuiz />} />
-          <Route path='/scorecard' element={<ScoreCard />} />
-          <Route path='/studentpanel' element={<StudentPanel />} />
-          <Route path='/quiz' element={<Quiz />} />
-          <Route path='/result' element={<Result />} />
-          <Route path='/history' element={<History />} />
+          <Route path='/' exact element={<IndexPage />} />
+          <Route path='/login' exact element={<Login />} />
+          <Route path='/register' exact element={<Register />} />
+          <Route path='/adminpanel' exact element={<AdminPanel />} />
+          <Route path='/preparequiz' exact element={<PrepareQuiz />} />
+          <Route path='/scorecard' exact element={<ScoreCard />} />
+          <Route path='/studentpanel' exact element={<StudentPanel />} />
+          <Route path='/quiz' exact element={<Quiz />} />
+          <Route path='/result' exact element={<Result />} />
+          <Route path='/history' exact element={<History />} />
         </Routes>
       </Router>
     </div>

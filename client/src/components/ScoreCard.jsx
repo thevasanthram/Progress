@@ -1,12 +1,14 @@
 import './ScoreCard.css';
 import React from 'react';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function ScoreCard() {
   const [scorecard, setScoreCard] = useState([]);
   const [errorResponse, setErrorResponse] = useState('');
   const [errorResponseState, setErrorResponseState] = useState(false);
+
+  const [loginStatus, setLoginStatus] = useState(false);
 
   useEffect(() => {
     async function scorecardapi() {
@@ -29,38 +31,59 @@ function ScoreCard() {
 
     scorecardapi();
   }, []);
-  return (
-    <div>
-      <div class='scorecard'>
-        <h1>ScoreCard</h1>
-        <hr />
-        <div class='scorecardinnerdivision'>
-          {scorecard.map((card) => {
-            return (
-              <div class='singlecard'>
-                <h4>Student Register Number: {card.studentRollNo}</h4>
-                <hr />
-                {card.quiz.map((singleQuiz) => {
-                  return (
-                    <div class='quizdetails'>
-                      <h5>Score: {singleQuiz.score}</h5>
-                      <h5>Time: {singleQuiz.time}</h5>
-                    </div>
-                  );
-                })}
-              </div>
-            );
-          })}
 
-          {errorResponseState && (
-            <div class='errorResponseScoreCard'>
-              <h3>{errorResponse}</h3>
-            </div>
-          )}
+  useEffect(() => {
+    const registerNumber = localStorage.getItem('registerNumber');
+    if (registerNumber == 'admin') {
+      setLoginStatus(true);
+    }
+  }, []);
+
+  function Content() {
+    return (
+      <div>
+        <div class='scorecard'>
+          <h1>ScoreCard</h1>
+          <hr />
+          <div class='scorecardinnerdivision'>
+            {scorecard.map((card) => {
+              return (
+                <div class='singlecard'>
+                  <h4>Student Register Number: {card.studentRollNo}</h4>
+                  <hr />
+                  {card.quiz.map((singleQuiz) => {
+                    return (
+                      <div class='quizdetails'>
+                        <h5>Score: {singleQuiz.score}</h5>
+                        <h5>Time: {singleQuiz.time}</h5>
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })}
+
+            {errorResponseState && (
+              <div class='errorResponseScoreCard'>
+                <h3>{errorResponse}</h3>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  function LoginAlert() {
+    return (
+      <div>
+        <h2>User has not logged in / session expired.. Try logging in</h2>
+        <Link to='/login'>Login</Link>
+      </div>
+    );
+  }
+
+  return <div>{loginStatus ? <Content /> : <LoginAlert />}</div>;
 }
 
 export default ScoreCard;

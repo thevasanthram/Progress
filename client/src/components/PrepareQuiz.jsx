@@ -1,7 +1,7 @@
 import './PrepareQuiz.css';
 import React from 'react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 
 function PrepareQuiz() {
   const [questionSet, setQuestionSet] = useState({
@@ -20,6 +20,8 @@ function PrepareQuiz() {
   const [ErrorResponseState, setErrorResponseState] = useState('');
   const [SuccessResponse, setSuccessResponse] = useState('');
   const [SuccessResponseState, setSuccessResponseState] = useState('');
+
+  const [loginStatus, setLoginStatus] = useState(false);
 
   const navigate = useNavigate();
 
@@ -151,135 +153,154 @@ function PrepareQuiz() {
     }
   };
 
-  return (
-    <div class='preparequiz'>
-      <h1>Prepare Quiz</h1>
-      <hr />
-      <div class='quizcontent'>
-        <form name='form' onSubmit={handleSubmit}>
-          <div class='questiondivision'>
-            <h4 class='title'>Question:</h4>
-            <div class='form-group'>
-              <div class='questioncontent'>
-                <textarea
-                  class='form-control'
-                  id='exampleFormControlTextarea1'
-                  rows='2'
-                  name='question'
-                  onChange={handleChange}
-                  placeholder='Start typing question'
-                  required
-                ></textarea>
-              </div>
-            </div>
-          </div>
-          <div class='options'>
-            <h4 class='title'>Options:</h4>
-            <div class='option'>
-              <div class='input-group mb-3'>
-                <div class='input-group-prepend'>
-                  <span class='input-group-text' id='basic-addon1'>
-                    A
-                  </span>
-                </div>
-                <input
-                  type='text'
-                  class='form-control'
-                  placeholder='Option A'
-                  aria-label='Username'
-                  aria-describedby='basic-addon1'
-                  onChange={handleChange}
-                  name='0'
-                  required
-                />
-              </div>
+  useEffect(() => {
+    const registerNumber = localStorage.getItem('registerNumber');
+    if (registerNumber == 'admin') {
+      setLoginStatus(true);
+    }
+  }, []);
 
-              <div class='input-group mb-3'>
-                <div class='input-group-prepend'>
-                  <span class='input-group-text' id='basic-addon1'>
-                    B
-                  </span>
-                </div>
-                <input
-                  type='text'
-                  class='form-control'
-                  placeholder='Option B'
-                  aria-label='Username'
-                  aria-describedby='basic-addon1'
-                  onChange={handleChange}
-                  name='1'
-                  required
-                />
-              </div>
-
-              <div class='input-group mb-3'>
-                <div class='input-group-prepend'>
-                  <span class='input-group-text' id='basic-addon1'>
-                    C
-                  </span>
-                </div>
-                <input
-                  type='text'
-                  class='form-control'
-                  placeholder='Option C'
-                  aria-label='Username'
-                  aria-describedby='basic-addon1'
-                  onChange={handleChange}
-                  name='2'
-                  required
-                />
-              </div>
-
-              <div class='input-group mb-3'>
-                <div class='input-group-prepend'>
-                  <span class='input-group-text' id='basic-addon1'>
-                    D
-                  </span>
-                </div>
-                <input
-                  type='text'
-                  class='form-control'
-                  placeholder='Option D'
-                  aria-label='Username'
-                  aria-describedby='basic-addon1'
-                  onChange={handleChange}
-                  name='3'
-                  required
-                />
-              </div>
-            </div>
-          </div>
-          <div class='answer'>
-            <h4 class='title'>Answer:</h4>
-            <div class='correctoption'>
+  function Content() {
+    return (
+      <div class='preparequiz'>
+        <h1>Prepare Quiz</h1>
+        <hr />
+        <div class='quizcontent'>
+          <form name='form' onSubmit={handleSubmit}>
+            <div class='questiondivision'>
+              <h4 class='title'>Question:</h4>
               <div class='form-group'>
-                <input
-                  type='text'
-                  class='form-control'
-                  name='correctoption'
-                  placeholder='Correct Option'
-                  onChange={handleChange}
-                  maxLength={1}
-                  required
-                />
-                {error && <span class='error'>{error}</span>}
+                <div class='questioncontent'>
+                  <textarea
+                    class='form-control'
+                    id='exampleFormControlTextarea1'
+                    rows='2'
+                    name='question'
+                    onChange={handleChange}
+                    placeholder='Start typing question'
+                    required
+                  ></textarea>
+                </div>
               </div>
             </div>
-          </div>
-          <div class='navigation'>
-            <button type='submit' class='btn btn-primary'>
-              Upload
-            </button>
-            {errorMsg && <span class='error'>Enter valid option!</span>}
-          </div>
-        </form>
-        {ErrorResponseState && (
-          <span class='error'>{ErrorResponse} Try Again!</span>
-        )}
-        {SuccessResponseState && <span class='error'>{SuccessResponse}</span>}
+            <div class='options'>
+              <h4 class='title'>Options:</h4>
+              <div class='option'>
+                <div class='input-group mb-3'>
+                  <div class='input-group-prepend'>
+                    <span class='input-group-text' id='basic-addon1'>
+                      A
+                    </span>
+                  </div>
+                  <input
+                    type='text'
+                    class='form-control'
+                    placeholder='Option A'
+                    aria-label='Username'
+                    aria-describedby='basic-addon1'
+                    onChange={handleChange}
+                    name='0'
+                    required
+                  />
+                </div>
+
+                <div class='input-group mb-3'>
+                  <div class='input-group-prepend'>
+                    <span class='input-group-text' id='basic-addon1'>
+                      B
+                    </span>
+                  </div>
+                  <input
+                    type='text'
+                    class='form-control'
+                    placeholder='Option B'
+                    aria-label='Username'
+                    aria-describedby='basic-addon1'
+                    onChange={handleChange}
+                    name='1'
+                    required
+                  />
+                </div>
+
+                <div class='input-group mb-3'>
+                  <div class='input-group-prepend'>
+                    <span class='input-group-text' id='basic-addon1'>
+                      C
+                    </span>
+                  </div>
+                  <input
+                    type='text'
+                    class='form-control'
+                    placeholder='Option C'
+                    aria-label='Username'
+                    aria-describedby='basic-addon1'
+                    onChange={handleChange}
+                    name='2'
+                    required
+                  />
+                </div>
+
+                <div class='input-group mb-3'>
+                  <div class='input-group-prepend'>
+                    <span class='input-group-text' id='basic-addon1'>
+                      D
+                    </span>
+                  </div>
+                  <input
+                    type='text'
+                    class='form-control'
+                    placeholder='Option D'
+                    aria-label='Username'
+                    aria-describedby='basic-addon1'
+                    onChange={handleChange}
+                    name='3'
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div class='answer'>
+              <h4 class='title'>Answer:</h4>
+              <div class='correctoption'>
+                <div class='form-group'>
+                  <input
+                    type='text'
+                    class='form-control'
+                    name='correctoption'
+                    placeholder='Correct Option'
+                    onChange={handleChange}
+                    maxLength={1}
+                    required
+                  />
+                  {error && <span class='error'>{error}</span>}
+                </div>
+              </div>
+            </div>
+            <div class='navigation'>
+              <button type='submit' class='btn btn-primary'>
+                Upload
+              </button>
+              {errorMsg && <span class='error'>Enter valid option!</span>}
+            </div>
+          </form>
+          {ErrorResponseState && (
+            <span class='error'>{ErrorResponse} Try Again!</span>
+          )}
+          {SuccessResponseState && <span class='error'>{SuccessResponse}</span>}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+  function LoginAlert() {
+    return (
+      <div>
+        <h2>User has not logged in / session expired.. Try logging in</h2>
+        <Link to='/login'>Login</Link>
+      </div>
+    );
+  }
+
+  return <div>{loginStatus ? <Content /> : <LoginAlert />}</div>;
 }
 
 export default PrepareQuiz;
