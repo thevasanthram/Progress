@@ -157,7 +157,7 @@ function Quiz() {
         </div>
       )}
 
-      {ErrorResponseState && <span class='error'>{ErrorResponse} Reload!</span>}
+      {ErrorResponseState && <h3>{ErrorResponse} Reload!</h3>}
     </div>
   );
 }
